@@ -68,7 +68,12 @@ endfunction "}}}
 function! s:manual.set() "{{{
   " call map(copy(self.colors), 'matchadd(v:val.name, v:val.pattern)')
   for color in self.colors
-    call matchadd(color.name, color.pattern, g:quickhl_manual_hl_priority)
+    if len(color.pattern) != 0
+        let ptn = '\<' . color.pattern . '\>'
+    else
+        let ptn = color.pattern
+    endif
+    call matchadd(color.name, ptn, g:quickhl_manual_hl_priority)
   endfor
 endfunction "}}}
 
